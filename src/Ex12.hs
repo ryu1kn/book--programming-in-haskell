@@ -10,17 +10,17 @@ instance Functor Tree where
     fmap g (Node l x r) = Node (fmap g l) (g x) (fmap g r)
 
 -- Q12.2
-instance Functor ((->) a) where
-    -- fmap :: (b -> c) -> (a -> b) -> (a -> c)
-    fmap = (.)
+-- instance Functor ((->) a) where
+--     -- fmap :: (b -> c) -> (a -> b) -> (a -> c)
+--     fmap = (.)
 
 -- Q12.3
-instance Applicative ((->) a) where
-    -- pure :: a -> (b -> a)
-    pure = const
+-- instance Applicative ((->) a) where
+--     -- pure :: a -> (b -> a)
+--     pure = const
 
-    -- (<*>) :: (a -> b -> c) -> (a -> b) -> (a -> c)
-    g <*> h = \x -> g x (h x)
+--     -- (<*>) :: (a -> b -> c) -> (a -> b) -> (a -> c)
+--     g <*> h = \x -> g x (h x)
 
 -- Q12.4
 newtype ZipList a = Z [a] deriving Show
@@ -31,10 +31,10 @@ instance Functor ZipList where
 
 instance Applicative ZipList where
     -- pure :: a -> ZipList a
-    pure x = Z (replicate x)
+    pure x = Z [x]
 
     -- (<*>) :: ZipList (a -> b) -> ZipList a -> ZipList b
-    (Z gs) <$> (Z xs) = Z [g x | (g,x) <- zip gs xs]
+    (Z gs) <*> (Z xs) = Z [g x | (g,x) <- zip gs xs]
 
 -- Q12.5
 {-
@@ -50,10 +50,10 @@ x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
 -}
 
 -- Q12.6
-instance Monad ((->) a) where
-    -- (>>=) :: f a -> (a -> f b) -> f b
-    -- (>>=) :: (a -> b) -> (a -> b -> c) -> (b -> c)
-    g >>= h = h . g
+-- instance Monad ((->) a) where
+--     -- (>>=) :: f a -> (a -> f b) -> f b
+--     -- (>>=) :: (a -> b) -> (a -> b -> c) -> (b -> c)
+--     g >>= h = h . g
 
 -- Q12.7
 -- data Expr a = Var a | Val Int | Add (Expr a) (Expr a)
