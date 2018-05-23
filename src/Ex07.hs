@@ -39,3 +39,12 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 uncurry f = \(x, y) -> f x y
 
 -- Q7.6
+unfold :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> [b]
+unfold p h t x | p x = []
+               | otherwise = h x : unfold p h t (t x)
+
+chop8 :: [Int] -> [[Int]]
+chop8 = unfold null (take 8) (drop 8)
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = unfold null (f . head) tail
