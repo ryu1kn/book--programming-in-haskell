@@ -6,10 +6,6 @@ import           Util
 
 type Pos = (Int,Int)
 
-writeat :: Pos -> String -> IO ()
-writeat p xs = do goto p
-                  putStr xs
-
 width :: Int
 width = 10
 
